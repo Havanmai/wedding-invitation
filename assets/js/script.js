@@ -39,22 +39,29 @@ function autoScroll() {
 }
 // countdown
 
-const wedding = new Date("Mar 29 2026 10:00:00").getTime();
+document.addEventListener("DOMContentLoaded", () => {
+  const wedding = new Date("Mar 29 2026 10:00:00").getTime();
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const gap = wedding - now;
+  const days = document.getElementById("days");
+  const hours = document.getElementById("hours");
+  const minutes = document.getElementById("minutes");
+  const seconds = document.getElementById("seconds");
 
-  const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-  const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-  const s = Math.floor((gap % (1000 * 60)) / 1000);
+  setInterval(() => {
+    const now = new Date().getTime();
+    const gap = wedding - now;
 
-  days.innerHTML = d;
-  hours.innerHTML = h;
-  minutes.innerHTML = m;
-  seconds.innerHTML = s;
-}, 1000);
+    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+    const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((gap % (1000 * 60)) / 1000);
+
+    days.innerHTML = d;
+    hours.innerHTML = h;
+    minutes.innerHTML = m;
+    seconds.innerHTML = s;
+  }, 1000);
+});
 
 const modalAlbum = document.getElementById("albumModal");
 const mainImage = document.getElementById("mainImage");
@@ -136,49 +143,6 @@ function prev() {
   if (index < 0) index = slides.length - 1;
   showSlide();
 }
-
-// mở modal gallery
-
-const modal = document.getElementById("galleryModal");
-
-document.querySelectorAll(".open-gallery").forEach((img) => {
-  img.addEventListener("click", () => {
-    modal.showModal();
-  });
-});
-
-// nút close
-
-const closeBtn = document.getElementById("closeModal");
-
-if (closeBtn) {
-  closeBtn.addEventListener("click", () => {
-    modal.close();
-  });
-}
-
-// click background đóng modal
-
-modal.addEventListener("click", (e) => {
-  const rect = modal.getBoundingClientRect();
-
-  if (
-    e.clientX < rect.left ||
-    e.clientX > rect.right ||
-    e.clientY < rect.top ||
-    e.clientY > rect.bottom
-  ) {
-    modal.close();
-  }
-});
-
-// ESC đóng modal
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    modal.close();
-  }
-});
 
 // scroll animation
 
