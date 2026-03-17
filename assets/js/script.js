@@ -21,18 +21,16 @@ openBtn.addEventListener("click", (e) => {
     openCard.style.display = "none";
 
     autoScroll();
-
   }, 400);
 });
 
-
-function autoScroll(){
+function autoScroll() {
   let speed = 1; // px mỗi frame
 
-  function scrollStep(){
+  function scrollStep() {
     window.scrollBy(0, speed);
 
-    if(window.scrollY + window.innerHeight < document.body.scrollHeight){
+    if (window.scrollY + window.innerHeight < document.body.scrollHeight) {
       requestAnimationFrame(scrollStep);
     }
   }
@@ -43,23 +41,20 @@ function autoScroll(){
 
 const wedding = new Date("Mar 29 2026 10:00:00").getTime();
 
-setInterval(()=>{
+setInterval(() => {
+  const now = new Date().getTime();
+  const gap = wedding - now;
 
-const now = new Date().getTime();
-const gap = wedding-now;
+  const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+  const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((gap % (1000 * 60)) / 1000);
 
-const d = Math.floor(gap/(1000*60*60*24));
-const h = Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-const m = Math.floor((gap%(1000*60*60))/(1000*60));
-const s = Math.floor((gap%(1000*60))/1000);
-
-days.innerHTML=d;
-hours.innerHTML=h;
-minutes.innerHTML=m;
-seconds.innerHTML=s;
-
-},1000);
-
+  days.innerHTML = d;
+  hours.innerHTML = h;
+  minutes.innerHTML = m;
+  seconds.innerHTML = s;
+}, 1000);
 
 const modalAlbum = document.getElementById("albumModal");
 const mainImage = document.getElementById("mainImage");
@@ -67,7 +62,7 @@ const mainImage = document.getElementById("mainImage");
 const thumbs = document.querySelectorAll("#albumModal button img");
 const thumbButtons = document.querySelectorAll("#albumModal button");
 
-let indexAlbum= 0;
+let indexAlbum = 0;
 
 // mở modal khi click ảnh album
 document.querySelectorAll(".grid img").forEach((img, i) => {
@@ -81,8 +76,8 @@ albumModal.addEventListener("close", () => {
   document.body.classList.remove("overflow-hidden");
 });
 
-function openAlbum(){
- document.body.style.overflow="hidden";
+function openAlbum() {
+  document.body.style.overflow = "hidden";
   albumModal.showModal();
 }
 
@@ -122,129 +117,112 @@ closeAlbum.addEventListener("click", () => {
 
 // gallery slider
 
-let index=0;
-const slides=document.querySelectorAll(".slide");
+let index = 0;
+const slides = document.querySelectorAll(".slide");
 
-function showSlide(){
-
-slides.forEach(s=>s.classList.remove("active"));
-slides[index].classList.add("active");
-
+function showSlide() {
+  slides.forEach((s) => s.classList.remove("active"));
+  slides[index].classList.add("active");
 }
 
-function next(){
-
-index++;
-if(index>=slides.length) index=0;
-showSlide();
-
+function next() {
+  index++;
+  if (index >= slides.length) index = 0;
+  showSlide();
 }
 
-function prev(){
-
-index--;
-if(index<0) index=slides.length-1;
-showSlide();
-
+function prev() {
+  index--;
+  if (index < 0) index = slides.length - 1;
+  showSlide();
 }
 
 // mở modal gallery
 
 const modal = document.getElementById("galleryModal");
 
-document.querySelectorAll(".open-gallery").forEach(img => {
-
+document.querySelectorAll(".open-gallery").forEach((img) => {
   img.addEventListener("click", () => {
     modal.showModal();
   });
-
 });
 
 // nút close
 
 const closeBtn = document.getElementById("closeModal");
 
-if(closeBtn){
-closeBtn.addEventListener("click", ()=>{
-modal.close();
-});
+if (closeBtn) {
+  closeBtn.addEventListener("click", () => {
+    modal.close();
+  });
 }
-
 
 // click background đóng modal
 
-modal.addEventListener("click",(e)=>{
-const rect = modal.getBoundingClientRect();
+modal.addEventListener("click", (e) => {
+  const rect = modal.getBoundingClientRect();
 
-if(
-e.clientX < rect.left ||
-e.clientX > rect.right ||
-e.clientY < rect.top ||
-e.clientY > rect.bottom
-){
-modal.close();
-}
+  if (
+    e.clientX < rect.left ||
+    e.clientX > rect.right ||
+    e.clientY < rect.top ||
+    e.clientY > rect.bottom
+  ) {
+    modal.close();
+  }
 });
-
 
 // ESC đóng modal
 
-document.addEventListener("keydown",(e)=>{
-if(e.key === "Escape"){
-modal.close();
-}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    modal.close();
+  }
 });
-
 
 // scroll animation
 
-const fades=document.querySelectorAll(".fade");
+const fades = document.querySelectorAll(".fade");
 
-function reveal(){
+function reveal() {
+  fades.forEach((el) => {
+    const top = el.getBoundingClientRect().top;
+    const height = window.innerHeight;
 
-fades.forEach(el=>{
-
-const top=el.getBoundingClientRect().top;
-const height=window.innerHeight;
-
-if(top<height-100){
-el.classList.add("show");
+    if (top < height - 100) {
+      el.classList.add("show");
+    }
+  });
 }
 
-});
-
-}
-
-window.addEventListener("scroll",reveal);
-
+window.addEventListener("scroll", reveal);
 
 // RSVP
 
-function send(){
-alert("Cảm ơn bạn đã xác nhận tham dự!");
+function send() {
+  alert("Cảm ơn bạn đã xác nhận tham dự!");
 }
 
 window.addEventListener("load", () => {
-window.scrollTo(0, 0);
-const albumImages = [
-"./assets/images/image-wedding/HERO5805.jpg",
-"./assets/images/image-wedding/HERO6660.jpg",
-"./assets/images/image-wedding/HERO7084.jpg",
-"./assets/images/image-wedding/HERO7159.jpg",
-"./assets/images/image-wedding/HERO7275.jpg",
-"./assets/images/image-wedding/HERO7601.jpg",
-"./assets/images/image-wedding/HERO7122.jpg",
-"./assets/images/image-wedding/HERO7754.jpg",
-"./assets/images/image-wedding/HERO5971.jpg",
-"./assets/images/image-wedding/HERO6686.jpg",
-"./assets/images/image-wedding/HERO7281.jpg",
-"./assets/images/image-wedding/HERO5856.jpg",
-"./assets/images/image-wedding/HERO6145.jpg"
-];
+  window.scrollTo(0, 0);
+  const albumImages = [
+    "./assets/images/image-wedding/HERO5805_11zon.webp",
+    "./assets/images/image-wedding/HERO6660_11zon.webp",
+    "./assets/images/image-wedding/HERO7084_11zon.webp",
+    "./assets/images/image-wedding/HERO7159_11zon.webp",
+    "./assets/images/image-wedding/HERO7275_11zon.webp",
+    "./assets/images/image-wedding/HERO7601_11zon.webp",
+    "./assets/images/image-wedding/HERO7122_11zon.webp",
+    "./assets/images/image-wedding/HERO7754_11zon.webp",
+    "./assets/images/image-wedding/HERO5971_11zon.webp",
+    "./assets/images/image-wedding/HERO6686_11zon.webp",
+    "./assets/images/image-wedding/HERO7281_11zon.webp",
+    "./assets/images/image-wedding/HERO5856_11zon.webp",
+    "./assets/images/image-wedding/HERO6145_11zon.webp",
+  ];
 
-albumImages.forEach(src=>{
-  const img = new Image();
-  img.src = src;
-});
-
+  albumImages.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
 });
